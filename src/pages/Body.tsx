@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import img1 from '../../public/formatura1.jpg';
 import img2 from '../../public/formatura2.jpg';
 import img3 from '../../public/formatura3.jpg';
@@ -490,11 +490,21 @@ const ConfirmButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   
-  &:hover {
+  &:hover:not(:disabled) {
     background: #f8f9fa;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
   }
   
   @media (max-width: 768px) {
@@ -503,8 +513,141 @@ const ConfirmButton = styled.button`
   }
 `;
 
+const LoadingSpinner = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #2E8B57;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
+const MessageContainer = styled.div<{ type: 'success' | 'error' }>`
+  background: ${props => props.type === 'success' 
+    ? 'linear-gradient(135deg, #4CAF50, #45a049)' 
+    : 'linear-gradient(135deg, #f44336, #da190b)'};
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease;
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const MessageTitle = styled.h4`
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+`;
+
+const MessageText = styled.p`
+  font-size: 1rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
+`;
+
+const ContactInfo = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+`;
+
+const ContactText = styled.p`
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+`;
+
+const ContactLink = styled.a`
+  color: white;
+  text-decoration: underline;
+  font-weight: 600;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const SuccessAnimation = keyframes`
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+`;
+
+const SuccessContainer = styled(MessageContainer)`
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #1b3a2b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  border: none;
+  box-shadow: 0 8px 32px rgba(67, 233, 123, 0.15);
+
+  @media (max-width: 600px) {
+    min-height: 120px;
+    padding: 16px;
+  }
+`;
+
+const SuccessIcon = styled.div`
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+  animation: ${SuccessAnimation} 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+`;
+
+const SuccessTitle = styled.h4`
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+  @media (max-width: 600px) {
+    font-size: 1.1rem;
+  }
+`;
+
+const SuccessText = styled.p`
+  font-size: 1.1rem;
+  margin-bottom: 0;
+  text-align: center;
+  opacity: 0.95;
+  @media (max-width: 600px) {
+    font-size: 0.95rem;
+  }
+`;
+
 const Body: React.FC = () => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
+  const [formData, setFormData] = useState({
+    Name: '',
+    Email: '',
+    Phone: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   
   const photos = [
     img1,
@@ -535,6 +678,51 @@ const Body: React.FC = () => {
 
  
   const translateX = -currentPhoto * 25; 
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validação básica
+    if (!formData.Name.trim() || !formData.Email.trim() || !formData.Phone.trim()) {
+      setSubmitStatus('error');
+      setErrorMessage('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    setIsLoading(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('Name', formData.Name);
+      formDataToSend.append('Email', formData.Email);
+      formDataToSend.append('Phone', formData.Phone);
+
+       await fetch('https://script.google.com/macros/s/AKfycbzOqaJ79BtHxqtUrNou7RQJHWriWSpqcZP0daYw-Vb6nYWrirueHJtkskaZj14Cqkp54w/exec', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      // Se chegou aqui, considere sucesso!
+      setSubmitStatus('success');
+      setFormData({ Name: '', Email: '', Phone: '' });
+      
+    } catch {
+      setSubmitStatus('error');
+      setErrorMessage('Erro ao enviar confirmação. Tente novamente ou entre em contato.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <InvitationContainer>
@@ -608,14 +796,71 @@ const Body: React.FC = () => {
 
         <RSVPSection>
           <RSVPTitle>Confirmar Presença</RSVPTitle>
-          <RSVPForm>
-            <Input type="text" placeholder="Nome completo" />
-            <Input type="email" placeholder="E-mail" />
-            <Input type="tel" placeholder="Telefone" />
-            <ConfirmButton type="submit">
-              Confirmar Presença
+          <RSVPForm onSubmit={handleSubmit}>
+            <Input 
+              type="text" 
+              name="Name"
+              placeholder="Nome completo" 
+              value={formData.Name}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+            <Input 
+              type="email" 
+              name="Email"
+              placeholder="E-mail" 
+              value={formData.Email}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+            <Input 
+              type="tel" 
+              name="Phone"
+              placeholder="Telefone" 
+              value={formData.Phone}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+            <ConfirmButton type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <LoadingSpinner />
+                  Enviando...
+                </>
+              ) : (
+                'Confirmar Presença'
+              )}
             </ConfirmButton>
           </RSVPForm>
+
+          {submitStatus === 'success' && (
+            <SuccessContainer type="success">
+              <SuccessIcon>🎉</SuccessIcon>
+              <SuccessTitle>Confirmação enviada!</SuccessTitle>
+              <SuccessText>
+                Obrigado por confirmar sua presença.<br />
+                Você receberá um e-mail em breve.<br />
+                <span style={{ fontSize: '0.95em', color: '#1b3a2b', opacity: 0.7 }}>
+                  Caso precise alterar, envie uma mensagem para a organização.
+                </span>
+              </SuccessText>
+            </SuccessContainer>
+          )}
+
+          {submitStatus === 'error' && (
+            <MessageContainer type="error">
+              <MessageTitle>❌ Erro ao Enviar</MessageTitle>
+              <MessageText>
+                {errorMessage}
+              </MessageText>
+              <ContactInfo>
+                <ContactText>Se o problema persistir, entre em contato:</ContactText>
+                <ContactLink href="https://wa.me/5591999999999" target="_blank">
+                  📱 WhatsApp: (91) 99999-9999
+                </ContactLink>
+              </ContactInfo>
+            </MessageContainer>
+          )}
         </RSVPSection>
       </InvitationCard>
     </InvitationContainer>
