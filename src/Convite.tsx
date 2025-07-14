@@ -65,7 +65,7 @@ const Convite: React.FC = () => {
         />
         <button
           className="botao-sobre-imagem"
-          onClick={() => window.open('https://seulink.com', '_blank')}
+          onClick={() => window.open('https://github.com/PatrickSampa/presentation_portfolio/settings/pages', '_blank')}
           style={{
             position: 'absolute',
             top: '66%', // Ajustado para mais abaixo
