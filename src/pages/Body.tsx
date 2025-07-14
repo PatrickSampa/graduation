@@ -15,6 +15,12 @@ const PhotoCarousel = styled.div`
   margin-bottom: 30px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  
+  @media (max-width: 768px) {
+    height: 350px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
 `;
 
 const CarouselContainer = styled.div<{ translateX: number }>`
@@ -66,6 +72,20 @@ const CarouselButton = styled.button`
   &.next {
     right: 10px;
   }
+  
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    
+    &.prev {
+      left: 5px;
+    }
+    
+    &.next {
+      right: 5px;
+    }
+  }
 `;
 
 const CarouselIndicator = styled.div`
@@ -96,6 +116,10 @@ const InvitationContainer = styled.div`
   min-height: 100vh;
   font-family: 'Playfair Display', serif;
   box-sizing: border-box;
+  
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const InvitationCard = styled.div`
@@ -117,6 +141,12 @@ const InvitationCard = styled.div`
     height: 5px;
     background: linear-gradient(90deg, #2E8B57, #3CB371, #2E8B57);
   }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    border-radius: 15px;
+    margin: 0 10px;
+  }
 `;
 
 const Header = styled.div`
@@ -124,6 +154,11 @@ const Header = styled.div`
   margin-bottom: 50px;
   padding: 30px 0;
   border-bottom: 2px solid #f0f0f0;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 30px;
+    padding: 20px 0;
+  }
 `;
 
 const Title = styled.h1`
@@ -134,6 +169,12 @@ const Title = styled.h1`
   text-transform: uppercase;
   letter-spacing: 4px;
   opacity: 0.8;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
 `;
 
 const Subtitle = styled.h2`
@@ -142,6 +183,11 @@ const Subtitle = styled.h2`
   margin-bottom: 15px;
   font-weight: 400;
   line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
 `;
 
 const Course = styled.p`
@@ -150,6 +196,10 @@ const Course = styled.p`
   margin-bottom: 8px;
   font-weight: 300;
   letter-spacing: 1px;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const University = styled.p`
@@ -157,6 +207,10 @@ const University = styled.p`
   color: #95a5a6;
   font-weight: 300;
   letter-spacing: 0.5px;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const EventDetails = styled.div`
@@ -195,6 +249,11 @@ const DetailCard = styled.div`
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   }
+  
+  @media (max-width: 768px) {
+    padding: 25px;
+    border-radius: 15px;
+  }
 `;
 
 const DetailIcon = styled.div`
@@ -209,6 +268,13 @@ const DetailIcon = styled.div`
   font-size: 1.5rem;
   margin-bottom: 20px;
   box-shadow: 0 8px 20px rgba(46, 139, 87, 0.3);
+  
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
 `;
 
 const DetailTitle = styled.h3`
@@ -219,6 +285,11 @@ const DetailTitle = styled.h3`
   text-transform: uppercase;
   letter-spacing: 2px;
   opacity: 0.9;
+  
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
 `;
 
 const DetailText = styled.p`
@@ -227,6 +298,10 @@ const DetailText = styled.p`
   margin-bottom: 5px;
   font-weight: 400;
   line-height: 1.3;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const DetailSubtext = styled.p`
@@ -234,6 +309,10 @@ const DetailSubtext = styled.p`
   color: #7f8c8d;
   font-weight: 300;
   letter-spacing: 0.5px;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const RSVPSection = styled.div`
@@ -242,6 +321,11 @@ const RSVPSection = styled.div`
   border-radius: 15px;
   text-align: center;
   margin-top: 30px;
+  
+  @media (max-width: 768px) {
+    padding: 25px 20px;
+    margin-top: 20px;
+  }
 `;
 
 const RSVPTitle = styled.h3`
@@ -249,6 +333,11 @@ const RSVPTitle = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 20px;
   font-weight: 600;
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
 `;
 
 const RSVPForm = styled.form`
@@ -257,6 +346,10 @@ const RSVPForm = styled.form`
   gap: 15px;
   max-width: 400px;
   margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
 `;
 
 const Input = styled.input`
@@ -275,6 +368,11 @@ const Input = styled.input`
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
   }
+  
+  @media (max-width: 768px) {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
 `;
 
 const ConfirmButton = styled.button`
@@ -292,6 +390,11 @@ const ConfirmButton = styled.button`
     background: #f8f9fa;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 12px 25px;
+    font-size: 1rem;
   }
 `;
 

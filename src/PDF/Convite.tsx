@@ -83,7 +83,7 @@ const Convite: React.FC = () => {
       
       // Adiciona o link clicável
       pdf.link(finalLinkX, finalLinkY, linkWidth, linkHeight, {
-        url: 'https://patricksampa.github.io/presentation_portfolio/'
+        url: 'https://patricksampa.github.io/graduation/'
       });
       
       pdf.save('convite-emily.pdf');
@@ -105,7 +105,7 @@ const Convite: React.FC = () => {
           className="convite-image"
         />
         <a
-          href="https://patricksampa.github.io/presentation_portfolio/"
+          href="https://patricksampa.github.io/graduation/"
           target="_blank"
           rel="noopener noreferrer"
           className="botao-sobre-imagem"
