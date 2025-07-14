@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
+import convite from '../public/convite_emily.jpg';
 import './Convite.css';
 
 const Convite: React.FC = () => {
@@ -58,7 +59,7 @@ const Convite: React.FC = () => {
       <div className="image-pdf-container" style={{ position: 'relative', display: 'inline-block' }}>
         <img 
           ref={pdfRef}
-          src="/convite_emily.jpg" 
+          src={convite} 
           alt="Convite Emily" 
           className="convite-image"
         />
