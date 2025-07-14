@@ -5,7 +5,6 @@ import img2 from '../../public/formatura2.jpg';
 import img3 from '../../public/formatura3.jpg';
 import img4 from '../../public/formatura4.jpg';
 
-// Componente do carrossel de fotos
 const PhotoCarousel = styled.div`
   width: 100%;
   height: 500px;
@@ -107,7 +106,6 @@ const Indicator = styled.div<{ active: boolean }>`
   transition: all 0.3s ease;
 `;
 
-// Componente principal do convite
 const InvitationContainer = styled.div`
   width: 100vw;
   margin: 0;
@@ -256,6 +254,67 @@ const DetailCard = styled.div`
   }
 `;
 
+const LocationCard = styled.a`
+  background: #fff;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f8f9fa;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2E8B57, #3CB371);
+  }
+  
+  &::after {
+    content: '🗺️ Abrir no Maps';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #2E8B57, #3CB371);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    
+    &::after {
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    padding: 25px;
+    border-radius: 15px;
+    
+    &::after {
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+      font-size: 0.6rem;
+    }
+  }
+`;
+
 const DetailIcon = styled.div`
   width: 60px;
   height: 60px;
@@ -274,6 +333,52 @@ const DetailIcon = styled.div`
     height: 50px;
     font-size: 1.2rem;
     margin-bottom: 15px;
+  }
+`;
+
+const LocationIcon = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2E8B57, #3CB371);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(46, 139, 87, 0.3);
+  position: relative;
+  
+  &::after {
+    content: '↗';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #fff;
+    color: #2E8B57;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    
+    &::after {
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+    }
   }
 `;
 
@@ -401,7 +506,6 @@ const ConfirmButton = styled.button`
 const Body: React.FC = () => {
   const [currentPhoto, setCurrentPhoto] = useState(0);
   
-  // Array de fotos do formando (substitua pelos URLs reais)
   const photos = [
     img1,
     img2,
@@ -429,13 +533,12 @@ const Body: React.FC = () => {
     setCurrentPhoto(index);
   };
 
-  // Calcula a translação baseada na foto atual
-  const translateX = -currentPhoto * 25; // 25% para cada foto (4 fotos = 100%)
+ 
+  const translateX = -currentPhoto * 25; 
 
   return (
     <InvitationContainer>
       <InvitationCard>
-        {/* Carrossel de Fotos */}
         <PhotoCarousel>
           <CarouselContainer translateX={translateX}>
             {photos.map((photo, index) => (
@@ -461,7 +564,6 @@ const Body: React.FC = () => {
           </CarouselIndicator>
         </PhotoCarousel>
 
-        {/* Cabeçalho */}
         <Header>
           <Title>Convite de Formatura</Title>
           <Subtitle>Emily lohane Amaral Cunha</Subtitle>
@@ -469,14 +571,18 @@ const Body: React.FC = () => {
           <University>Universidade do Estado do Pará</University>
         </Header>
 
-        {/* Detalhes do Evento */}
         <EventDetails>
-          <DetailCard>
-            <DetailIcon>📍</DetailIcon>
+          <LocationCard 
+            href="https://www.google.com/maps/place/Condominio+Gran+Para%C3%ADso/@-1.3239604,-48.4412427,17z/data=!3m1!4b1!4m6!3m5!1s0x92a4613d60ae2825:0x21004f08a42db1f6!8m2!3d-1.3239604!4d-48.4386678!16s%2Fg%2F11j5jgmtpx?entry=ttu"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Abrir no Google Maps"
+          >
+            <LocationIcon>📍</LocationIcon>
             <DetailTitle>Local</DetailTitle>
-            <DetailText>Villa Festas</DetailText>
-            <DetailSubtext>São Paulo, SP</DetailSubtext>
-          </DetailCard>
+            <DetailText>Condomínio Gran Paraíso</DetailText>
+            <DetailSubtext>Belém, PA</DetailSubtext>
+          </LocationCard>
 
           <DetailCard>
             <DetailIcon>📅</DetailIcon>
@@ -500,7 +606,6 @@ const Body: React.FC = () => {
           </DetailCard>
         </EventDetails>
 
-        {/* Seção RSVP */}
         <RSVPSection>
           <RSVPTitle>Confirmar Presença</RSVPTitle>
           <RSVPForm>
