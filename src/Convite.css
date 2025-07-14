@@ -1,0 +1,142 @@
+/* Container principal */
+.convite-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container da imagem para PDF - completamente sem espaçamentos */
+.image-pdf-container {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  min-height: auto;
+  display: block;
+  align-items: unset;
+  justify-content: unset;
+  overflow: visible;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+/* Estilo da imagem - completamente sem espaçamentos */
+.convite-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;
+  transition: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.convite-image:hover {
+  transform: none;
+}
+
+/* Controles do PDF */
+.pdf-controls {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.generate-pdf-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.generate-pdf-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(45deg, #764ba2, #667eea);
+}
+
+.generate-pdf-btn:active {
+  transform: translateY(0);
+}
+
+.botao-sobre-imagem {
+  width: 90px;
+  height: 90px;
+  padding: 0;
+  font-size: 1.5rem;
+  background: #ffd700;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  opacity: 0.95;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.botao-sobre-imagem:hover {
+  background: #ffe066;
+  transform: scale(1.08);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .convite-container {
+    padding: 10px;
+  }
+  
+  .image-pdf-container {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Estilos específicos para impressão/PDF */
+@media print {
+  .pdf-controls {
+    display: none;
+  }
+  
+  .convite-container {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .image-pdf-container {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    display: block;
+    background: transparent;
+  }
+  
+  .convite-image {
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .botao-sobre-imagem {
+    display: none !important;
+  }
+} 
