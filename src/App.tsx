@@ -1,9 +1,9 @@
-import Convite from './Convite';
+import Body from './pages/Body';
 
 function App() {
   return (
     <div className="App">
-      <Convite />
+      <Body />
     </div>
   )
 }

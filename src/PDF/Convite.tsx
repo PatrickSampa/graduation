@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import convite from '../public/convite_emily.jpg';
+import convite from '../../public/convite_emily.jpg';
 import './Convite.css';
 
 const Convite: React.FC = () => {
